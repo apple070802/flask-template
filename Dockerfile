@@ -16,7 +16,9 @@ ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     FLASK_APP=app
-RUN useradd --create-home --uid 1000 app
+RUN useradd --create-home --uid 1000 app \
+    && mkdir -p /app/instance \
+    && chown -R app:app /app
 WORKDIR /app
 COPY --from=build /app/.venv /app/.venv
 COPY app ./app
